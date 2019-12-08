@@ -1,6 +1,7 @@
 package com.abhi.moneyapp.controller;
 
 import com.abhi.moneyapp.payload.ApiResponse;
+import com.abhi.moneyapp.payload.LoginRequest;
 import com.abhi.moneyapp.payload.SignUpRequest;
 import com.abhi.moneyapp.repository.model.Role;
 import com.abhi.moneyapp.repository.model.RoleName;
@@ -53,9 +54,9 @@ public class AuthController {
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
 
-//    @PostMapping("/signin")
-//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-//
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+
 //        Authentication authentication = authenticationManager.authenticate(
 //                new UsernamePasswordAuthenticationToken(
 //                        loginRequest.getUsernameOrEmail(),
@@ -66,6 +67,7 @@ public class AuthController {
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
 //
 //        String jwt = tokenProvider.generateToken(authentication);
-//        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-//    }
+      //  return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        return null;
+    }
 }
