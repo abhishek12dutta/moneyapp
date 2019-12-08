@@ -52,4 +52,20 @@ public class AuthController {
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
+
+//    @PostMapping("/signin")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+//
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        loginRequest.getUsernameOrEmail(),
+//                        loginRequest.getPassword()
+//                )
+//        );
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        String jwt = tokenProvider.generateToken(authentication);
+//        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+//    }
 }
