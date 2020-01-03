@@ -31,7 +31,7 @@ http://localhost:8080/api/auth/signin
 
 3.
 
-http://localhost:8080/api/user/me
+
 
 
 Authorization : Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc2Mzc2OTEzLCJleHAiOjE1NzY5ODE3MTN9.5uJyVbLlMKVSuLIerVc26Eu73U8iIszFOaXFUGYy29aNMLmr0V82chkFL_TKb6ThRbSbQa3sTRsr3nijRD-zCQ

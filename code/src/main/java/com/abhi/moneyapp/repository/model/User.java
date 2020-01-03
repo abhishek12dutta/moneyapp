@@ -3,6 +3,7 @@ package com.abhi.moneyapp.repository.model;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -52,6 +53,20 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinTable(name = "user_todo_mapping",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "todo_id"))
+    private Set<Todo> todo;
+
+    public Set<Todo> getTodo() {
+        return todo;
+    }
+
+    public void setTodo(Set<Todo> todo) {
+        this.todo = todo;
+    }
 
     public long getUserId() {
         return userId;

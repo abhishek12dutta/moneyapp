@@ -3,6 +3,7 @@ package com.abhi.moneyapp.mapper;
 import com.abhi.moneyapp.payload.PersonalDetails;
 import com.abhi.moneyapp.payload.SignUpRequest;
 import com.abhi.moneyapp.payload.UserSummary;
+import com.abhi.moneyapp.repository.model.Todo;
 import com.abhi.moneyapp.repository.model.User;
 import com.abhi.moneyapp.repository.model.UserDetail;
 import org.springframework.stereotype.Component;
@@ -41,5 +42,15 @@ public class GenericMapper {
             user.setUserDetail(userDetail);
         }
         return user;
+    }
+
+    public Todo convertToDTO(com.abhi.moneyapp.payload.Todo todo) {
+        Todo todoDTO = new Todo();
+        todoDTO.setTitle(todo.getTitle());
+        todoDTO.setCompletionStatus(todo.isCompletionStatus());
+        todoDTO.setPriority(todo.getPriority());
+        todoDTO.setDescription(todo.getDescription());
+        todoDTO.setDate(todo.getDate());
+        return todoDTO;
     }
 }
