@@ -9,14 +9,6 @@ public class UserDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int user_details_id;
 
-    @Column(name = "user_address_line1", nullable = false)
-    private String addressline1;
-
-    @Column(name = "user_address_line2")
-    private String addressline2;
-
-    @Column(name = "user_country", nullable = false)
-    private String country;
 
     @Column(name = "user_pincode")
     private int pincode;
@@ -34,30 +26,6 @@ public class UserDetail {
 
     public void setUser_details_id(int user_details_id) {
         this.user_details_id = user_details_id;
-    }
-
-    public String getAddressline1() {
-        return addressline1;
-    }
-
-    public void setAddressline1(String addressline1) {
-        this.addressline1 = addressline1;
-    }
-
-    public String getAddressline2() {
-        return addressline2;
-    }
-
-    public void setAddressline2(String addressline2) {
-        this.addressline2 = addressline2;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public int getPincode() {

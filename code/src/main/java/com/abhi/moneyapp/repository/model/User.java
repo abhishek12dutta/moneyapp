@@ -14,12 +14,15 @@ public class User {
     @Id
     @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    private long userId;
 
     @Column(name = "user_email", nullable = false)
     private String email;
 
-    @Column(name = "user_username", nullable = true)
+    @Column(name = "user_full_name", nullable = false)
+    private String userFullName;
+
+    @Column(name = "user_username", nullable = false)
     private String username;
 
     @Column(name = "user_password", nullable = false)
@@ -50,11 +53,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -112,5 +115,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
     }
 }

@@ -3,8 +3,8 @@ package com.abhi.moneyapp.service.impl;
 import com.abhi.moneyapp.controller.RoleRepository;
 import com.abhi.moneyapp.exception.AppException;
 import com.abhi.moneyapp.mapper.GenericMapper;
-import com.abhi.moneyapp.payload.AppUser;
 import com.abhi.moneyapp.payload.SignUpRequest;
+import com.abhi.moneyapp.payload.UserSummary;
 import com.abhi.moneyapp.repository.UserRepository;
 import com.abhi.moneyapp.repository.model.Role;
 import com.abhi.moneyapp.repository.model.RoleName;
@@ -32,27 +32,25 @@ public class UserServiceImpl implements UserService {
     private GenericMapper genericMapper;
 
     @Override
-    public List<AppUser> retrieveAllUsers() {
-        List<AppUser> appUserList = new ArrayList<>();
+    public List<UserSummary> retrieveAllUsers() {
+        List<UserSummary> appUserList = new ArrayList<>();
         List<User> userList = userRepository.findAll();
 
         for (User user : userList) {
             appUserList.add(genericMapper.convertToAppUser(user));
         }
-
-
         return appUserList;
     }
 
     @Override
     public boolean checkUserAvailability(String userName) {
 
-        return userRepository.existsByUsername(userName);
+        return !userRepository.existsByUsername(userName);
     }
 
     @Override
     public boolean checkEmailAvailability(String email) {
-        return userRepository.existsByEmail(email);
+        return !userRepository.existsByEmail(email);
     }
 
     @Override
@@ -65,5 +63,12 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Collections.singleton(userRole));
         User result = userRepository.save(user);
 
+    }
+
+    @Override
+    public UserSummary retrieveUser(Long id) {
+        User user = userRepository.getOne(id);
+        UserSummary userSummary = genericMapper.convertToAppUser(user);
+        return userSummary;
     }
 }

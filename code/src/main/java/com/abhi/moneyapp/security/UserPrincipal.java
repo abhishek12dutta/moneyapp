@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 public class UserPrincipal implements UserDetails {
     private Long id;
 
+    private String name;
+
     private String username;
 
     @JsonIgnore
@@ -24,8 +26,9 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id,String fullname, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
+        this.name=fullname;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -38,7 +41,7 @@ public class UserPrincipal implements UserDetails {
         ).collect(Collectors.toList());
 
         return new UserPrincipal(
-                new Long(user.getUserId()),
+                new Long(user.getUserId()),user.getUserFullName(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
@@ -90,6 +93,13 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 
+    public String getName() {
+        return name;
+    }
+
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,4 +113,6 @@ public class UserPrincipal implements UserDetails {
 
         return Objects.hash(id);
     }
+
+
 }

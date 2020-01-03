@@ -1,15 +1,20 @@
 package com.abhi.moneyapp;
 
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class MoneyAppApplication {
+public class MoneyAppApplication
+        //extends SpringBootServletInitializer
+{
 
     public static void main(String[] args) {
-        SpringApplication.run(MoneyAppApplication.class, args);
+        SpringApplication app = new SpringApplication(MoneyAppApplication.class);
+        app.setBannerMode(Banner.Mode.OFF);
+        app.run(args);
     }
 
 }
