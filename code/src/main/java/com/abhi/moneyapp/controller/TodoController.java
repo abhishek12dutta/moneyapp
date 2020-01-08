@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,6 +34,51 @@ public class TodoController {
             return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity(new ApiResponse(true, "CREATED"), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/mytodos")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> fetchAllTodos(@CurrentUser UserPrincipal currentUser) {
+        List<Todo> todos=new ArrayList<>();
+        try {
+            todos = todoService.retrieveAllTodos(currentUser.getId());
+        } catch (DataAccessException d) {
+            return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(todos, HttpStatus.OK);
+    }
+    @GetMapping("/mytodo/{todoId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> fetchAllTodos(@CurrentUser UserPrincipal currentUser, @PathVariable("todoId") Long todoId) {
+        Todo todo=null;
+        try {
+            todo = todoService.retrieveTodoById(currentUser.getId(),todoId);
+        } catch (DataAccessException d) {
+            return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(todo, HttpStatus.OK);
+    }
+
+    @PutMapping("/mytodo/update/{todoId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> updateTodo(@CurrentUser UserPrincipal currentUser, @PathVariable("todoId") Long todoId, @RequestBody Todo todo) {
+        try {
+            todoService.updateTodo(todo, currentUser.getId(),todoId);
+        } catch (DataAccessException d) {
+            return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(new ApiResponse(true, "UPDATED"), HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/mytodo/togglestatus/{todoId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> updateTodo(@CurrentUser UserPrincipal currentUser, @PathVariable("todoId") Long todoId) {
+        try {
+            todoService.toggleCompletedStatus(currentUser.getId(),todoId);
+        } catch (DataAccessException d) {
+            return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(new ApiResponse(true, "UPDATED"), HttpStatus.NO_CONTENT);
     }
 
 }

@@ -1,12 +1,23 @@
 package com.abhi.moneyapp.payload;
 
-public class Todo {
+import java.util.List;
 
+public class Todo {
+    private int id;
     private String title;
     private String priority;
-    private String description;
-    private boolean completionStatus;
+    private String desc ;
+    private boolean completed;
     private String date;
+    private List<String> tags;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -24,20 +35,20 @@ public class Todo {
         this.priority = priority;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public boolean isCompletionStatus() {
-        return completionStatus;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    public void setCompletionStatus(boolean completionStatus) {
-        this.completionStatus = completionStatus;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public String getDate() {
@@ -46,5 +57,13 @@ public class Todo {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 }

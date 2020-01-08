@@ -8,6 +8,7 @@ import com.abhi.moneyapp.repository.model.User;
 import com.abhi.moneyapp.repository.model.UserDetail;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Component
@@ -18,7 +19,7 @@ public class GenericMapper {
         userSummary.setFullNmae(user.getUserFullName());
         userSummary.setEmail(user.getEmail());
         userSummary.setUsername(user.getUsername());
-        userSummary.setPhnNo(String.valueOf(user.getUserDetail().getPhnextn()) + String.valueOf(user.getUserDetail().getPhnno()));
+        userSummary.setPhnNo(user.getUserDetail().getPhnextn() + user.getUserDetail().getPhnno());
         userSummary.setPincode(String.valueOf(user.getUserDetail().getPincode()));
         userSummary.setId(user.getUserId());
         userSummary.setRoleList(user.getRoles());
@@ -47,10 +48,22 @@ public class GenericMapper {
     public Todo convertToDTO(com.abhi.moneyapp.payload.Todo todo) {
         Todo todoDTO = new Todo();
         todoDTO.setTitle(todo.getTitle());
-        todoDTO.setCompletionStatus(todo.isCompletionStatus());
+        todoDTO.setCompletionStatus(todo.isCompleted());
         todoDTO.setPriority(todo.getPriority());
-        todoDTO.setDescription(todo.getDescription());
+        todoDTO.setDescription(todo.getDesc());
         todoDTO.setDate(todo.getDate());
+        return todoDTO;
+    }
+
+    public com.abhi.moneyapp.payload.Todo convertToBO(Todo todo) {
+        com.abhi.moneyapp.payload.Todo todoDTO = new com.abhi.moneyapp.payload.Todo();
+        todoDTO.setId(Integer.parseInt(String.valueOf(todo.getId())));
+        todoDTO.setTitle(todo.getTitle());
+        todoDTO.setCompleted(todo.isCompletionStatus());
+        todoDTO.setPriority(todo.getPriority());
+        todoDTO.setDesc(todo.getDescription());
+        todoDTO.setDate(todo.getDate());
+        todoDTO.setTags(Arrays.asList("ABC","DEF"));
         return todoDTO;
     }
 }

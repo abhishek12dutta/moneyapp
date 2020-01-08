@@ -26,7 +26,10 @@ public class Todo {
     @Column(name = "date", nullable = false)
     private String date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_todo_mapping",
+            joinColumns = @JoinColumn(name = "todo_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private User user;
 
     public long getId() {

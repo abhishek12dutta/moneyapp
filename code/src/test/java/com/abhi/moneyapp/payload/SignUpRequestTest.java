@@ -15,10 +15,9 @@ public class SignUpRequestTest {
         signUpRequest.setPassword("password");
         signUpRequest.setUsername("abhipicku12");
         PersonalDetails personalDetails = new PersonalDetails();
-        personalDetails.setAddressline1("Meena Wood, Flat 3B, Block-C");
         personalDetails.setCountry("India");
-        personalDetails.setPincode(723133);
-        personalDetails.setPhnextn(91);
+        personalDetails.setPincode("723133");
+        personalDetails.setPhnextn("+91");
         personalDetails.setPhnno(new Long("9733892131"));
         signUpRequest.setPersonalDetails(personalDetails);
         ObjectMapper objectMapper = new ObjectMapper();

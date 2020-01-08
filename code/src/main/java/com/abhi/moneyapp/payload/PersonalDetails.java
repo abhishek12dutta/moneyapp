@@ -1,9 +1,5 @@
 package com.abhi.moneyapp.payload;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -11,40 +7,18 @@ public class PersonalDetails {
 
     @NotBlank
     @Size(min = 4, max = 40)
-    private String addressline1;
-
-    private String addressline2;
-
-    @NotBlank
-    @Size(min = 4, max = 40)
     private String country;
 
     @NotBlank
     @Size(min = 10, max = 10)
-    private int pincode;
+    private String pincode;
 
     @NotBlank
     @Size(min = 2, max = 6)
-    private int phnextn;
+    private String phnextn;
     @NotBlank
     @Size(min = 10, max = 10)
     private Long phnno;
-
-    public String getAddressline1() {
-        return addressline1;
-    }
-
-    public void setAddressline1(String addressline1) {
-        this.addressline1 = addressline1;
-    }
-
-    public String getAddressline2() {
-        return addressline2;
-    }
-
-    public void setAddressline2(String addressline2) {
-        this.addressline2 = addressline2;
-    }
 
     public String getCountry() {
         return country;
@@ -54,19 +28,19 @@ public class PersonalDetails {
         this.country = country;
     }
 
-    public int getPincode() {
+    public String getPincode() {
         return pincode;
     }
 
-    public void setPincode(int pincode) {
+    public void setPincode(String pincode) {
         this.pincode = pincode;
     }
 
-    public int getPhnextn() {
+    public String getPhnextn() {
         return phnextn;
     }
 
-    public void setPhnextn(int phnextn) {
+    public void setPhnextn(String phnextn) {
         this.phnextn = phnextn;
     }
 
@@ -77,5 +51,4 @@ public class PersonalDetails {
     public void setPhnno(Long phnno) {
         this.phnno = phnno;
     }
-
 }
