@@ -23,12 +23,13 @@ public class TodoServiceImpl implements TodoService {
     private GenericMapper genericMapper;
 
     @Override
-    public void saveTodo(Todo todo, Long userId) {
+    public Todo saveTodo(Todo todo, Long userId) {
         Optional<User> user = userRepository.findById(userId);
         User user1 = user.get();
         com.abhi.moneyapp.repository.model.Todo t = genericMapper.convertToDTO(todo);
         t.setUser(user1);
-        todoRepository.save(t);
+        t = todoRepository.save(t);
+        return genericMapper.convertToBO(t);
     }
 
     @Override
@@ -62,5 +63,13 @@ public class TodoServiceImpl implements TodoService {
         com.abhi.moneyapp.repository.model.Todo repoTodo = todoRepository.findTodoById(id, todoId);
         repoTodo.setCompletionStatus(!repoTodo.isCompletionStatus());
         todoRepository.save(repoTodo);
+    }
+
+    @Override
+    public void deleteTodo(Long id, Long todoId) {
+        com.abhi.moneyapp.repository.model.Todo repoTodo = todoRepository.findTodoById(id, todoId);
+        if (repoTodo != null) {
+            todoRepository.deleteById(todoId);
+        }
     }
 }

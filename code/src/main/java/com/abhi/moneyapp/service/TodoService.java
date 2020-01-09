@@ -6,13 +6,15 @@ import java.util.List;
 
 public interface TodoService {
 
-    public void saveTodo(Todo todo, Long userId);
+    Todo saveTodo(Todo todo, Long userId);
 
-    public List<Todo> retrieveAllTodos(Long userId);
+    List<Todo> retrieveAllTodos(Long userId);
 
     Todo retrieveTodoById(Long id, Long todoId);
 
     void updateTodo(Todo todo, Long id, Long todoId);
 
     void toggleCompletedStatus(Long id, Long todoId);
+
+    void deleteTodo(Long id, Long todoId);
 }

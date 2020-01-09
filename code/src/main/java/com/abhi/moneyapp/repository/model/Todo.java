@@ -1,6 +1,18 @@
 package com.abhi.moneyapp.repository.model;
 
-import javax.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity(name = "todo")
 @Table(name = "todo_table")
@@ -26,10 +38,11 @@ public class Todo {
     @Column(name = "date", nullable = false)
     private String date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinTable(name = "user_todo_mapping",
             joinColumns = @JoinColumn(name = "todo_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User user;
 
     public long getId() {
