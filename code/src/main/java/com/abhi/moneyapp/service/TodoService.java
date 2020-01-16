@@ -12,7 +12,7 @@ public interface TodoService {
 
     Todo retrieveTodoById(Long id, Long todoId);
 
-    void updateTodo(Todo todo, Long id, Long todoId);
+    Todo updateTodo(Todo todo, Long id, Long todoId);
 
     void toggleCompletedStatus(Long id, Long todoId);
 

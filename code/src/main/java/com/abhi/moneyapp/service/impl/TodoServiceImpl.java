@@ -4,14 +4,14 @@ import com.abhi.moneyapp.mapper.GenericMapper;
 import com.abhi.moneyapp.payload.Todo;
 import com.abhi.moneyapp.repository.TodoRepository;
 import com.abhi.moneyapp.repository.UserRepository;
+import com.abhi.moneyapp.repository.model.Tag;
 import com.abhi.moneyapp.repository.model.User;
 import com.abhi.moneyapp.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TodoServiceImpl implements TodoService {
@@ -49,13 +49,21 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void updateTodo(Todo todo, Long id, Long todoId) {
+    public Todo updateTodo(Todo todo, Long id, Long todoId) {
         com.abhi.moneyapp.repository.model.Todo repoTodo = todoRepository.findTodoById(id, todoId);
+        repoTodo.setTags(null);
+        todoRepository.save(repoTodo);
+        repoTodo.setTitle(todo.getTitle());
         repoTodo.setPriority(todo.getPriority());
         repoTodo.setDescription(todo.getDesc());
         repoTodo.setDate(todo.getDate());
         repoTodo.setCompletionStatus(todo.isCompleted());
-        todoRepository.save(repoTodo);
+        Set<Tag> tagList = new HashSet<>();
+        for(String str: todo.getTags()){
+            tagList.add(new Tag(str));
+        }
+        repoTodo.setTags(tagList);
+        return genericMapper.convertToBO(todoRepository.save(repoTodo));
     }
 
     @Override

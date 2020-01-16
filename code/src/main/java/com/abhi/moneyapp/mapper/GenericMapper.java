@@ -3,13 +3,13 @@ package com.abhi.moneyapp.mapper;
 import com.abhi.moneyapp.payload.PersonalDetails;
 import com.abhi.moneyapp.payload.SignUpRequest;
 import com.abhi.moneyapp.payload.UserSummary;
+import com.abhi.moneyapp.repository.model.Tag;
 import com.abhi.moneyapp.repository.model.Todo;
 import com.abhi.moneyapp.repository.model.User;
 import com.abhi.moneyapp.repository.model.UserDetail;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.util.*;
 
 @Component
 public class GenericMapper {
@@ -52,6 +52,9 @@ public class GenericMapper {
         todoDTO.setPriority(todo.getPriority());
         todoDTO.setDescription(todo.getDesc());
         todoDTO.setDate(todo.getDate());
+        for(String str: todo.getTags()){
+            todoDTO.getTags().add(new Tag(str));
+        }
         return todoDTO;
     }
 
@@ -63,7 +66,11 @@ public class GenericMapper {
         todoDTO.setPriority(todo.getPriority());
         todoDTO.setDesc(todo.getDescription());
         todoDTO.setDate(todo.getDate());
-        todoDTO.setTags(Arrays.asList("ABC","DEF"));
+        List<String> tagList = new ArrayList<>();
+        for(Tag tag: todo.getTags()){
+            tagList.add(tag.getName());
+        }
+        todoDTO.setTags(tagList);
         return todoDTO;
     }
 }
