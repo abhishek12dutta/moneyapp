@@ -2,9 +2,15 @@ package com.abhi.moneyapp.repository.model;
 
 
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
+ *
  */
 @Entity
 @Table(name = "tags")
@@ -20,9 +26,15 @@ public class Tag {
     public Tag() {
 
     }
+
     public Tag(String name) {
-        this.name=name;
+        this.name = name;
     }
+
+
+    @ManyToMany(mappedBy="tags")
+    private Set<Todo> todos = new HashSet<>();
+
 
     public Long getId() {
         return id;
@@ -39,5 +51,14 @@ public class Tag {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<Todo> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(Set<Todo> todos) {
+        this.todos = todos;
+    }
+
 }
 

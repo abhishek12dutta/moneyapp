@@ -2,6 +2,7 @@ package com.abhi.moneyapp.service.impl;
 
 import com.abhi.moneyapp.mapper.GenericMapper;
 import com.abhi.moneyapp.payload.Todo;
+import com.abhi.moneyapp.repository.TagRepository;
 import com.abhi.moneyapp.repository.TodoRepository;
 import com.abhi.moneyapp.repository.UserRepository;
 import com.abhi.moneyapp.repository.model.Tag;
@@ -21,12 +22,18 @@ public class TodoServiceImpl implements TodoService {
     private UserRepository userRepository;
     @Autowired
     private GenericMapper genericMapper;
+    @Autowired
+    private TagRepository tagRepository;
 
     @Override
     public Todo saveTodo(Todo todo, Long userId) {
         Optional<User> user = userRepository.findById(userId);
         User user1 = user.get();
         com.abhi.moneyapp.repository.model.Todo t = genericMapper.convertToDTO(todo);
+        for(String str: todo.getTags()){
+            Tag tag = tagRepository.findTagByName(str);
+            t.getTags().add(tag);
+        }
         t.setUser(user1);
         t = todoRepository.save(t);
         return genericMapper.convertToBO(t);
@@ -51,8 +58,6 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public Todo updateTodo(Todo todo, Long id, Long todoId) {
         com.abhi.moneyapp.repository.model.Todo repoTodo = todoRepository.findTodoById(id, todoId);
-        repoTodo.setTags(null);
-        todoRepository.save(repoTodo);
         repoTodo.setTitle(todo.getTitle());
         repoTodo.setPriority(todo.getPriority());
         repoTodo.setDescription(todo.getDesc());
@@ -60,7 +65,8 @@ public class TodoServiceImpl implements TodoService {
         repoTodo.setCompletionStatus(todo.isCompleted());
         Set<Tag> tagList = new HashSet<>();
         for(String str: todo.getTags()){
-            tagList.add(new Tag(str));
+            Tag tag = tagRepository.findTagByName(str);
+            tagList.add(tag);
         }
         repoTodo.setTags(tagList);
         return genericMapper.convertToBO(todoRepository.save(repoTodo));
@@ -76,6 +82,11 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void deleteTodo(Long id, Long todoId) {
         com.abhi.moneyapp.repository.model.Todo repoTodo = todoRepository.findTodoById(id, todoId);
+
+//        for(Tag tag : repoTodo.getTags()){
+//            repoTodo.removeTag(tag);
+//        }
+
         if (repoTodo != null) {
             todoRepository.deleteById(todoId);
         }

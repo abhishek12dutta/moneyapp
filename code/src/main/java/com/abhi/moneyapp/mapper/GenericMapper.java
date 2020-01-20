@@ -52,9 +52,9 @@ public class GenericMapper {
         todoDTO.setPriority(todo.getPriority());
         todoDTO.setDescription(todo.getDesc());
         todoDTO.setDate(todo.getDate());
-        for(String str: todo.getTags()){
-            todoDTO.getTags().add(new Tag(str));
-        }
+//        for(String str: todo.getTags()){
+//            todoDTO.getTags().add(new Tag(str));
+//        }
         return todoDTO;
     }
 

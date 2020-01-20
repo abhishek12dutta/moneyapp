@@ -38,11 +38,23 @@ public class Todo {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.LAZY)
     @JoinTable(name = "mapping_todo_tags",
             joinColumns = @JoinColumn(name = "todo_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags = new HashSet<>();
+
+
+    public void addTags(Tag tag){
+        this.tags.add(tag);
+        tag.getTodos().add(this);
+    }
+
+    public void removeTag(Tag tag){
+        this.tags.remove(tag);
+        tag.getTodos().remove(this);
+    }
+
 
     public long getId() {
         return id;
