@@ -62,7 +62,7 @@ public class TodoServiceImpl implements TodoService {
         repoTodo.setPriority(todo.getPriority());
         repoTodo.setDescription(todo.getDesc());
         repoTodo.setDate(todo.getDate());
-        repoTodo.setCompletionStatus(todo.isCompleted());
+        repoTodo.setCompletionStatus(todo.getCompletionStatus());
         Set<Tag> tagList = new HashSet<>();
         for(String str: todo.getTags()){
             Tag tag = tagRepository.findTagByName(str);
@@ -73,9 +73,9 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void toggleCompletedStatus(Long id, Long todoId) {
+    public void toggleCompletedStatus(Long id, Long todoId,String status) {
         com.abhi.moneyapp.repository.model.Todo repoTodo = todoRepository.findTodoById(id, todoId);
-        repoTodo.setCompletionStatus(!repoTodo.isCompletionStatus());
+        repoTodo.setCompletionStatus(status);
         todoRepository.save(repoTodo);
     }
 

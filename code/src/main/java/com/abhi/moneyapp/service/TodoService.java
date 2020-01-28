@@ -14,7 +14,7 @@ public interface TodoService {
 
     Todo updateTodo(Todo todo, Long id, Long todoId);
 
-    void toggleCompletedStatus(Long id, Long todoId);
+    void toggleCompletedStatus(Long id, Long todoId,String status);
 
     void deleteTodo(Long id, Long todoId);
 }

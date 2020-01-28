@@ -10,14 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +49,11 @@ public class TodoController {
     public ResponseEntity<?> fetchAllTodos(@CurrentUser UserPrincipal currentUser, @PathVariable("todoId") Long todoId) {
         Todo todo=null;
         try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
             todo = todoService.retrieveTodoById(currentUser.getId(),todoId);
         } catch (DataAccessException d) {
             return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -74,11 +72,11 @@ public class TodoController {
         return new ResponseEntity(new ApiResponse(true, "UPDATED"), HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/mytodo/togglestatus/{todoId}")
+    @PutMapping("/mytodo/togglestatus")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> updateTodo(@CurrentUser UserPrincipal currentUser, @PathVariable("todoId") Long todoId) {
+    public ResponseEntity<?> updateTodo(@CurrentUser UserPrincipal currentUser, @RequestParam(value  = "todoId") Long todoId,@RequestParam(value  = "completionStatus") String completionStatus) {
         try {
-            todoService.toggleCompletedStatus(currentUser.getId(),todoId);
+            todoService.toggleCompletedStatus(currentUser.getId(),todoId,completionStatus);
         } catch (DataAccessException d) {
             return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
         }

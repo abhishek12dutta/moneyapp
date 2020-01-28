@@ -7,8 +7,17 @@ public class Todo {
     private String title;
     private String priority;
     private String desc ;
-    private boolean completed;
+    private String completionStatus;
     private String date;
+
+    public String getCompletionStatus() {
+        return completionStatus;
+    }
+
+    public void setCompletionStatus(String completionStatus) {
+        this.completionStatus = completionStatus;
+    }
+
     private List<String> tags;
 
     public int getId() {
@@ -43,13 +52,6 @@ public class Todo {
         this.desc = desc;
     }
 
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
 
     public String getDate() {
         return date;

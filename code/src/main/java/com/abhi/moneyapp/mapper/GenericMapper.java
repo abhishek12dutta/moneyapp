@@ -48,7 +48,7 @@ public class GenericMapper {
     public Todo convertToDTO(com.abhi.moneyapp.payload.Todo todo) {
         Todo todoDTO = new Todo();
         todoDTO.setTitle(todo.getTitle());
-        todoDTO.setCompletionStatus(todo.isCompleted());
+        todoDTO.setCompletionStatus(todo.getCompletionStatus());
         todoDTO.setPriority(todo.getPriority());
         todoDTO.setDescription(todo.getDesc());
         todoDTO.setDate(todo.getDate());
@@ -62,7 +62,7 @@ public class GenericMapper {
         com.abhi.moneyapp.payload.Todo todoDTO = new com.abhi.moneyapp.payload.Todo();
         todoDTO.setId(Integer.parseInt(String.valueOf(todo.getId())));
         todoDTO.setTitle(todo.getTitle());
-        todoDTO.setCompleted(todo.isCompletionStatus());
+        todoDTO.setCompletionStatus(todo.getCompletionStatus());
         todoDTO.setPriority(todo.getPriority());
         todoDTO.setDesc(todo.getDescription());
         todoDTO.setDate(todo.getDate());

@@ -25,8 +25,11 @@ public class Todo {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "done", columnDefinition = "TINYINT(1)")
-    private boolean completionStatus;
+//    @Column(name = "done", columnDefinition = "TINYINT(1)")
+//    private boolean completionStatus;
+
+    @Column(name = "todo_status",columnDefinition = "varchar(1) default 'O'")
+    private String completionStatus;
 
     @Column(name = "date", nullable = false)
     private String date;
@@ -44,6 +47,14 @@ public class Todo {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags = new HashSet<>();
 
+
+    public String getCompletionStatus() {
+        return completionStatus;
+    }
+
+    public void setCompletionStatus(String completionStatus) {
+        this.completionStatus = completionStatus;
+    }
 
     public void addTags(Tag tag){
         this.tags.add(tag);
@@ -104,13 +115,13 @@ public class Todo {
         this.description = description;
     }
 
-    public boolean isCompletionStatus() {
-        return completionStatus;
-    }
-
-    public void setCompletionStatus(boolean completionStatus) {
-        this.completionStatus = completionStatus;
-    }
+//    public boolean isCompletionStatus() {
+//        return completionStatus;
+//    }
+//
+//    public void setCompletionStatus(boolean completionStatus) {
+//        this.completionStatus = completionStatus;
+//    }
 
     public String getDate() {
         return date;
