@@ -2,9 +2,10 @@ package com.abhi.moneyapp.payload;
 
 import com.abhi.moneyapp.repository.model.Role;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class UserSummary {
+public class UserSummary implements Serializable {
 
     private Long id;
     private String username;

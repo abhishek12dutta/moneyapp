@@ -1,5 +1,6 @@
 package com.abhi.moneyapp.service;
 
+import com.abhi.moneyapp.payload.PurgeRequest;
 import com.abhi.moneyapp.payload.Todo;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface TodoService {
     void toggleCompletedStatus(Long id, Long todoId,String status);
 
     void deleteTodo(Long id, Long todoId);
+
+    Todo archiveTodo(PurgeRequest purgeRequest, Long id);
 }

@@ -3,8 +3,9 @@ package com.abhi.moneyapp.payload;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-public class SignUpRequest {
+public class SignUpRequest implements Serializable {
     @NotBlank
     @Size(min = 4, max = 40)
     private String name;

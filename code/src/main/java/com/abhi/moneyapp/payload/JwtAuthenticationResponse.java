@@ -1,6 +1,8 @@
 package com.abhi.moneyapp.payload;
 
-public class JwtAuthenticationResponse {
+import java.io.Serializable;
+
+public class JwtAuthenticationResponse implements Serializable {
     private String accessToken;
     private String tokenType = "Bearer";
 

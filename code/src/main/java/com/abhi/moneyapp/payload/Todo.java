@@ -1,14 +1,16 @@
 package com.abhi.moneyapp.payload;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Todo {
+public class Todo implements Serializable {
     private int id;
     private String title;
     private String priority;
     private String desc ;
     private String completionStatus;
     private String date;
+    private boolean purged;
 
     public String getCompletionStatus() {
         return completionStatus;
@@ -67,5 +69,13 @@ public class Todo {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public boolean isPurged() {
+        return purged;
+    }
+
+    public void setPurged(boolean purged) {
+        this.purged = purged;
     }
 }

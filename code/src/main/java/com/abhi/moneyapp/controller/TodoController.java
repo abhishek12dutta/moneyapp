@@ -1,6 +1,7 @@
 package com.abhi.moneyapp.controller;
 
 import com.abhi.moneyapp.payload.ApiResponse;
+import com.abhi.moneyapp.payload.PurgeRequest;
 import com.abhi.moneyapp.payload.Todo;
 import com.abhi.moneyapp.security.CurrentUser;
 import com.abhi.moneyapp.security.UserPrincipal;
@@ -36,7 +37,7 @@ public class TodoController {
     @GetMapping("/mytodos")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> fetchAllTodos(@CurrentUser UserPrincipal currentUser) {
-        List<Todo> todos=new ArrayList<>();
+        List<Todo> todos = new ArrayList<>();
         try {
             todos = todoService.retrieveAllTodos(currentUser.getId());
         } catch (DataAccessException d) {
@@ -44,17 +45,18 @@ public class TodoController {
         }
         return new ResponseEntity(todos, HttpStatus.OK);
     }
+
     @GetMapping("/mytodo/{todoId}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> fetchAllTodos(@CurrentUser UserPrincipal currentUser, @PathVariable("todoId") Long todoId) {
-        Todo todo=null;
+        Todo todo = null;
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         try {
-            todo = todoService.retrieveTodoById(currentUser.getId(),todoId);
+            todo = todoService.retrieveTodoById(currentUser.getId(), todoId);
         } catch (DataAccessException d) {
             return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -65,7 +67,7 @@ public class TodoController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> updateTodo(@CurrentUser UserPrincipal currentUser, @PathVariable("todoId") Long todoId, @RequestBody Todo todo) {
         try {
-            todoService.updateTodo(todo, currentUser.getId(),todoId);
+            todoService.updateTodo(todo, currentUser.getId(), todoId);
         } catch (DataAccessException d) {
             return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -74,9 +76,9 @@ public class TodoController {
 
     @PutMapping("/mytodo/togglestatus")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> updateTodo(@CurrentUser UserPrincipal currentUser, @RequestParam(value  = "todoId") Long todoId,@RequestParam(value  = "completionStatus") String completionStatus) {
+    public ResponseEntity<?> updateTodo(@CurrentUser UserPrincipal currentUser, @RequestParam(value = "todoId") Long todoId, @RequestParam(value = "completionStatus") String completionStatus) {
         try {
-            todoService.toggleCompletedStatus(currentUser.getId(),todoId,completionStatus);
+            todoService.toggleCompletedStatus(currentUser.getId(), todoId, completionStatus);
         } catch (DataAccessException d) {
             return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -92,6 +94,19 @@ public class TodoController {
             return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity(new ApiResponse(true, "UPDATED"), HttpStatus.NO_CONTENT);
+    }
+
+
+    @PostMapping("/mytodo/archive")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> archiveTodo(@CurrentUser UserPrincipal currentUser, @RequestBody PurgeRequest purgeRequest) {
+        Todo todo = null;
+        try {
+            todo = todoService.archiveTodo(purgeRequest, currentUser.getId());
+        } catch (DataAccessException d) {
+            return new ResponseEntity(new ApiResponse(false, "ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(todo, HttpStatus.CREATED);
     }
 
 }

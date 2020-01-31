@@ -1,8 +1,9 @@
 package com.abhi.moneyapp.payload;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
-public class LoginRequest {
+public class LoginRequest implements Serializable {
     @NotBlank
     private String usernameOrEmail;
 

@@ -71,6 +71,7 @@ public class GenericMapper {
             tagList.add(tag.getName());
         }
         todoDTO.setTags(tagList);
+        todoDTO.setPurged(todo.isPurged());
         return todoDTO;
     }
 }

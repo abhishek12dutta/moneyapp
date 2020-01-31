@@ -2,8 +2,9 @@ package com.abhi.moneyapp.payload;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-public class PersonalDetails {
+public class PersonalDetails implements Serializable {
 
     @NotBlank
     @Size(min = 4, max = 40)

@@ -1,6 +1,9 @@
 package com.abhi.moneyapp.payload;
 
-public class ApiResponse {
+import java.io.Serializable;
+
+public class ApiResponse implements Serializable {
+
     private Boolean success;
     private String message;
 

@@ -25,8 +25,16 @@ public class Todo {
     @Column(name = "description", nullable = false)
     private String description;
 
-//    @Column(name = "done", columnDefinition = "TINYINT(1)")
-//    private boolean completionStatus;
+    @Column(name = "purged", columnDefinition = "TINYINT(1)")
+    private boolean purged;
+
+    public boolean isPurged() {
+        return purged;
+    }
+
+    public void setPurged(boolean purged) {
+        this.purged = purged;
+    }
 
     @Column(name = "todo_status",columnDefinition = "varchar(1) default 'O'")
     private String completionStatus;
